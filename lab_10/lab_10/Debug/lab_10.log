@@ -1,0 +1,3 @@
+﻿  lab_10.cpp
+c:\users\alexey\source\repos\lab_10\lab_10\lab_10.cpp(17): warning C4101: numCust: неиспользованная локальная переменная
+  lab_10.vcxproj -> c:\Users\Alexey\source\repos\lab_10\Debug\lab_10.exe
