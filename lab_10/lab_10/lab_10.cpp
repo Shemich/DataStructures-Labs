@@ -28,25 +28,21 @@ int main()
 
 	for (minute = 0; minute < simLength; minute++)
 	{
-		// Serve Customer // 
 		if (!custQ.isEmpty())
 		{
 			timeArrived = custQ.dequeue();
 			totalServed++;
 
-			// Calculate Wait Times // 
 			waitTime = minute - timeArrived;
 			totalWait += waitTime;
 			if (waitTime > maxWait)
 				maxWait = waitTime;
 		}
 
-		// Add Customers // 
 		rng = rand() % 4;
 		switch (rng)
 		{
 		case 0:
-			//Do not add any customers 
 			break;
 		case 1:
 			custQ.enqueue(minute);
@@ -58,10 +54,8 @@ int main()
 			numArrivals += 2;
 			break;
 		case 3:
-			//Do not add any customers 
 			break;
 		default:
-			//Do not add any customers 
 			break;
 		}
 
