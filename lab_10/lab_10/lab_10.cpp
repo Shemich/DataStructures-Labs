@@ -12,58 +12,71 @@ int main()
 {
 	Queue<int> custQ; // Line (queue) of customers containing the
 	// time that each customer arrived and joined the line
-	int simLength, // Length of simulation (minutes)
+	int simLength[4], // Length of simulation (minutes)
 		minute, // Current minute
-		numCust, // Number of customers arrived
+		numCust = 0,// Number of customers arrived
 		timeArrived, // Time dequeued customer arrived
-		waitTime, // How long dequeued customer waited
-		totalServed = 0, // Total customers served
-		totalWait = 0, // Total waiting time
-		maxWait = 0, // Longest wait
+		waitTime[4] = { 0,0,0,0 }, // How long dequeued customer waited
+		totalServed[4] = {0,0,0,0}, // Total customers served
+	
+		maxWait[4] = { 0,0,0,0 }, // Longest wait
 		numArrivals = 0; // Number of new arrivals
-	int rng = 0;
+	int totalWait[4] = {0,0,0,0}; // Total waiting time
 
-	cout << endl << "Enter the length of time to run the simulator : ";
-	cin >> simLength;
 
-	for (minute = 0; minute < simLength; minute++)
+	for (int i = 0; i < 4; i++)
 	{
-		if (!custQ.isEmpty())
+		cout << endl << "Enter the length of time to run the simulator : ";
+		cin >> simLength[i];
+
+		for (minute = 0; minute < simLength[i]; minute++)
 		{
-			timeArrived = custQ.dequeue();
-			totalServed++;
+			if (!custQ.isEmpty())
+			{
+				timeArrived = custQ.dequeue();
+				totalServed[i]++;
 
-			waitTime = minute - timeArrived;
-			totalWait += waitTime;
-			if (waitTime > maxWait)
-				maxWait = waitTime;
-		}
+				waitTime[i] = minute - timeArrived;
+				totalWait[i] += waitTime[i];
+				if (waitTime[i] > maxWait[i])
+					maxWait[i] = waitTime[i];
+			}
 
-		rng = rand() % 4;
-		switch (rng)
-		{
-		case 0:
-			break;
-		case 1:
-			custQ.enqueue(minute);
-			numArrivals++;
-			break;
-		case 2:
-			custQ.enqueue(minute);
-			custQ.enqueue(minute);
-			numArrivals += 2;
-			break;
-		case 3:
-			break;
-		default:
-			break;
-		}
+			numCust = rand() % 4;
+			switch (numCust)
+			{
+			case 0:
+				break;
+			case 1:
+				custQ.enqueue(minute);
+				numArrivals++;
+				break;
+			case 2:
+				custQ.enqueue(minute);
+				custQ.enqueue(minute);
+				numArrivals += 2;
+				break;
+			case 3:
+				break;
+			default:
+				break;
+			}
 
+		}		
 	}
-
-	cout << endl;
-	cout << "Customers served : " << totalServed << endl;
-	cout << "Average wait     : " << setprecision(2)
-		<< double(totalWait) / totalServed << endl;
-	cout << "Longest wait     : " << maxWait << endl;
+	cout << "\nTime ";
+	cout << "\tCustomers served ";
+	cout << "\tAverage wait ";
+	cout << "\tLongest wait ";
+	for (int i = 0; i < 4; i++)
+	{
+		cout << "\n";
+		cout << simLength[i];
+		cout << "\t\t" << totalServed[i] << "\t\t   ";
+		cout << setprecision(2);
+		cout << double(totalWait[i]) / totalServed[i];
+		cout << "\t\t\t" <<maxWait[i];
+	}
+	cout << "\n\n\n\n";
+	system("pause");
 }
